@@ -7,7 +7,7 @@ const Home = () => {
   const navigation = useNavigation();
 
   return (
-    <View style={tw`p-5 justify-center`}>
+    <View style={tw`p-5 justify-center items-center h-full`}>
       <Text>I am the Home Screen</Text>
       <Button
         title="Go to chat screen"
