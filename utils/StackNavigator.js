@@ -1,4 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import SafeAreaView from "react-native-safe-area-view";
+
 import React from "react";
 
 import Home from "../screens/Home";
@@ -12,6 +15,8 @@ const StackNavigator = () => {
   const { user } = useAuth();
 
   return (
+    // <SafeAreaProvider>
+    //   <SafeAreaView>
     <Stack.Navigator>
       {user ? (
         <>
@@ -34,6 +39,8 @@ const StackNavigator = () => {
         />
       )}
     </Stack.Navigator>
+    //   </SafeAreaView>
+    // </SafeAreaProvider>
   );
 };
 
