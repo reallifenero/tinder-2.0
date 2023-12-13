@@ -18,13 +18,11 @@ const config = {
 
 export const AuthProvider = ({ children }) => {
   const signInWithGoogle = async () => {
-    console.log(Google);
-
-    // await Google.logInAsync(config).then(async (logInResult) => {
-    //   if (logInResult.type === "success") {
-    //     // login...
-    //   }
-    // });
+    await Google.logInAsync(config).then(async (logInResult) => {
+      if (logInResult.type === "success") {
+        // login...
+      }
+    });
   };
 
   return (
