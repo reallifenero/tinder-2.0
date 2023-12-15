@@ -1,7 +1,9 @@
-import { Text, View } from "react-native";
+import { Text, View, LogBox } from "react-native";
 import StackNavigator from "./utils/StackNavigator";
 import { NavigationContainer } from "@react-navigation/native";
 import { AuthProvider } from "./hooks/useAuth";
+
+LogBox.ignoreAllLogs();
 
 export default function App() {
   return (

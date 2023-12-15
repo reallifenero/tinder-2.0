@@ -31,6 +31,12 @@
         </array>
       </dict>
       <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>com.googleusercontent.apps.910920738929-npjt6fgj5ll8j2jaoso1h3f73ign7g60</string>
+        </array>
+      </dict>
+      <dict>
         <key>CFBundleTypeRole</key>
         <string>Editor</string>
         <key>CFBundleURLName</key>
@@ -81,7 +87,7 @@
       <string>UIInterfaceOrientationLandscapeRight</string>
     </array>
     <key>UIUserInterfaceStyle</key>
-    <string>Light</string>
+    <string>Dark</string>
     <key>UIViewControllerBasedStatusBarAppearance</key>
     <false/>
   </dict>
