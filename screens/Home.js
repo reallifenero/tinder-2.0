@@ -1,9 +1,12 @@
+import React from "react";
 import tw from "tailwind-react-native-classnames";
 import { View, Text, Button } from "react-native";
-import React from "react";
 import { useNavigation } from "@react-navigation/core";
 
+import useAuth from "../hooks/useAuth";
+
 const Home = () => {
+  const { signOutWithGoogle } = useAuth();
   const navigation = useNavigation();
 
   return (
@@ -13,6 +16,7 @@ const Home = () => {
         title="Go to chat screen"
         onPress={() => navigation.navigate("Chat")}
       />
+      <Button title="Logout" onPress={() => signOutWithGoogle()} />
     </View>
   );
 };

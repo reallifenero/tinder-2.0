@@ -4,7 +4,7 @@ import useAuth from "../hooks/useAuth";
 import tw from "tailwind-react-native-classnames";
 
 const Login = () => {
-  const { signInWithGoogle, request } = useAuth();
+  const { signInWithGoogle, request, loading } = useAuth();
 
   return (
     <View style={tw`bg-red-500 justify-center items-center h-full`}>
@@ -14,7 +14,7 @@ const Login = () => {
         onPress={() => signInWithGoogle()}
       >
         <Text style={tw`uppercase text-red-400 font-bold`}>
-          Login with google
+          {loading ? "loading..." : "Login with google"}
         </Text>
       </Pressable>
     </View>

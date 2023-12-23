@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { ResponseType } from "expo-auth-session";
 import {
   GoogleAuthProvider,
@@ -20,11 +26,15 @@ const config = {
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [authError, setAuthError] = useState(null);
+  const [loadingInitial, setLoadingInitial] = useState(true);
   const [request, response, promptAsync] = Google.useAuthRequest(config);
 
-  const signInWithGoogle = async () => {
-    await promptAsync()
+  const signInWithGoogle = () => {
+    setLoading(true);
+
+    promptAsync()
       .then((result) => {
         if (response?.type === "success") {
           const { id_token, access_token } = response.params;
@@ -41,7 +51,9 @@ export const AuthProvider = ({ children }) => {
       .catch((error) => {
         setAuthError(error);
       })
-      .finally(() => {});
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -51,18 +63,38 @@ export const AuthProvider = ({ children }) => {
       } else {
         setUser(null);
       }
+
+      setLoadingInitial(false);
     });
   }, [response, user]);
 
+  const signOutWithGoogle = () => {
+    setLoading(true);
+
+    signOut(auth)
+      .catch((error) => {
+        setAuthError(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  const memoedValue = useMemo(
+    () => ({
+      user,
+      loading,
+      request,
+      authError,
+      signInWithGoogle,
+      signOutWithGoogle,
+    }),
+    [user, loading, request, authError, signInWithGoogle, signOutWithGoogle]
+  );
+
   return (
-    <AuthContext.Provider
-      value={{
-        user,
-        signInWithGoogle,
-        request,
-      }}
-    >
-      {children}
+    <AuthContext.Provider value={memoedValue}>
+      {!loadingInitial && children}
     </AuthContext.Provider>
   );
 };
