@@ -4,7 +4,6 @@ import useAuth from "../hooks/useAuth";
 import tw from "tailwind-react-native-classnames";
 
 const Login = () => {
-  const { user } = useAuth();
   const { signInWithGoogle, request } = useAuth();
 
   return (
