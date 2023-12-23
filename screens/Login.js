@@ -5,11 +5,12 @@ import tw from "tailwind-react-native-classnames";
 
 const Login = () => {
   const { user } = useAuth();
-  const { signInWithGoogle } = useAuth();
+  const { signInWithGoogle, request } = useAuth();
 
   return (
     <View style={tw`bg-red-500 justify-center items-center h-full`}>
       <Pressable
+        disabled={!request}
         style={tw`bg-gray-100 uppercase py-4 px-10 rounded-full`}
         onPress={() => signInWithGoogle()}
       >

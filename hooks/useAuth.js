@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { ResponseType } from "expo-auth-session";
+import { GoogleAuthProvider, signInWithCredential } from "@firebase/auth";
 import * as Google from "expo-auth-session/providers/google";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth, db } from "../utils/firebase";
 
 const AuthContext = createContext({});
@@ -15,29 +16,33 @@ const config = {
 export const AuthProvider = ({ children }) => {
   const [request, response, promptAsync] = Google.useAuthRequest(config);
 
-  const [initializing, setInitializing] = useState(true);
-  const [user, setUser] = useState();
+  // const [initializing, setInitializing] = useState(true);
+  // const [user, setUser] = useState();
 
   const signInWithGoogle = async () => {
-    await promptAsync().then(() => {
-      if (response?.type == "success") {
-        // login...
-      } else {
-      }
+    await promptAsync().then((result) => {
+      console.log("Log In Successful");
     });
   };
 
-  // useEffect(() => {
-  //   var provider = new GoogleAuthProvider();
+  useEffect(() => {
+    if (response?.type === "success") {
+      const { id_token, access_token } = response.params;
+      const credential = new GoogleAuthProvider.credential(
+        id_token,
+        access_token
+      );
 
-  //   signInWithPopup(auth, provider);
-  // }, [response]);
+      signInWithCredential(auth, credential);
+    }
+  }, [response]);
 
   return (
     <AuthContext.Provider
       value={{
         user: null,
         signInWithGoogle,
+        request,
       }}
     >
       {children}
