@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
 
   const signInWithGoogle = async () => {
     await promptAsync().then(() => {
-      if (response?.type == success) {
+      if (response?.type == "success") {
         // login...
       } else {
       }
