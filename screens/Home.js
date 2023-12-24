@@ -47,7 +47,7 @@ const Home = () => {
         </TouchableOpacity>
       </View>
       <Swiper
-        cards={[...DUMMY_DATA]}
+        cards={["DO", "MORE", "OF", "WHAT", "MAKES", "YOU", "HAPPY"]}
         renderCard={(card) => {
           return (
             <View style={styles.card}>
