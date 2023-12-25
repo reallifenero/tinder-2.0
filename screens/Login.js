@@ -1,4 +1,4 @@
-import { View, Text, Pressable } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import useAuth from "../hooks/useAuth";
 import tw from "tailwind-react-native-classnames";
@@ -8,7 +8,7 @@ const Login = () => {
 
   return (
     <View style={tw`bg-red-500 justify-center items-center h-full`}>
-      <Pressable
+      <TouchableOpacity
         disabled={!request}
         style={tw`bg-gray-100 uppercase py-4 px-10 rounded-full`}
         onPress={() => signInWithGoogle()}
@@ -16,7 +16,7 @@ const Login = () => {
         <Text style={tw`uppercase text-red-400 font-bold`}>
           {loading ? "loading..." : "Login with google"}
         </Text>
-      </Pressable>
+      </TouchableOpacity>
     </View>
   );
 };

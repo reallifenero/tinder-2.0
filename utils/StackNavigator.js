@@ -17,26 +17,14 @@ const StackNavigator = () => {
   return (
     // <SafeAreaProvider>
     //   <SafeAreaView>
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       {user ? (
         <>
-          <Stack.Screen
-            name="Home"
-            component={Home}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Chat"
-            component={Chat}
-            options={{ headerShown: false }}
-          />
+          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Chat" component={Chat} />
         </>
       ) : (
-        <Stack.Screen
-          name="Login"
-          component={Login}
-          options={{ headerShown: false }}
-        />
+        <Stack.Screen name="Login" component={Login} />
       )}
     </Stack.Navigator>
     //   </SafeAreaView>
