@@ -46,34 +46,7 @@ const Home = () => {
           <Ionicons name="chatbubbles-sharp" size={32} color="black" />
         </TouchableOpacity>
       </View>
-      <Swiper
-        cards={[...DUMMY_DATA]}
-        renderCard={(card) => {
-          return (
-            <View style={styles.card}>
-              <Text style={styles.text}>{card}</Text>
-            </View>
-          );
-        }}
-        onSwiped={(cardIndex) => {
-          console.log(cardIndex);
-        }}
-        onSwipedAll={() => {
-          console.log("onSwipedAll");
-        }}
-        cardIndex={0}
-        backgroundColor={"#4FD0E9"}
-        stackSize={3}
-      >
-        <Button
-          onPress={() => {
-            console.log("oulala");
-          }}
-          title="Press me"
-        >
-          You can press me
-        </Button>
-      </Swiper>
+
       <View style={tw`p-5 justify-start items-center h-full`}>
         <Text>I am the Home Screen</Text>
         <Button
