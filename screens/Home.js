@@ -21,7 +21,7 @@ const Home = () => {
   const navigation = useNavigation();
   // console.log(user.photoURL);
   return (
-    <SafeAreaView>
+    <SafeAreaView style={tw`flex-1`}>
       {/* Header */}
       <View style={tw`items-center relative flex`}>
         <TouchableOpacity
@@ -46,8 +46,23 @@ const Home = () => {
           <Ionicons name="chatbubbles-sharp" size={32} color="black" />
         </TouchableOpacity>
       </View>
+      {/* Cards */}
+      <View style={tw`flex-1 -mt-6`}>
+        <Swiper
+          cards={DUMMY_DATA}
+          containerStyle={{ backgroundColor: "transparent" }}
+          renderCard={(card) => (
+            <View key={card.id} style={tw`bg-red-500 h-3/4 rounded-xl`}>
+              <Text>{card.firstName}</Text>
+              <Text>{card.lastName}</Text>
+            </View>
+          )}
+        />
+      </View>
 
-      <View style={tw`p-5 justify-start items-center h-full`}>
+      {/* Home View */}
+
+      <View style={tw`p-5 justify-end items-center h-full`}>
         <Text>I am the Home Screen</Text>
         <Button
           title="Go to chat screen"
