@@ -52,7 +52,11 @@ const Home = () => {
           cards={DUMMY_DATA}
           containerStyle={{ backgroundColor: "transparent" }}
           renderCard={(card) => (
-            <View key={card.id} style={tw`bg-red-500 h-3/4 rounded-xl`}>
+            <View key={card.id} style={tw`relative bg-white h-3/4 rounded-xl`}>
+              <Image
+                style={tw`absolute top-0 h-full w-full rounded-xl`}
+                source={{ uri: card.photoURL }}
+              />
               <Text>{card.firstName}</Text>
               <Text>{card.lastName}</Text>
             </View>
