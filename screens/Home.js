@@ -100,17 +100,23 @@ const Home = () => {
         />
       </View>
 
-      <View style={tw`flex gap-5 flex-row justify-between px-20`}>
+      <View style={tw`flex-row justify-evenly`}>
         <TouchableOpacity>
           <Ionicons
-            name="close-circle-sharp"
-            style={{ fontSize: 50, color: "red" }}
+            name="arrow-undo-circle-sharp"
+            style={{ fontSize: 50, color: "orange" }}
           />
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => swipeRef.current.swipeLeft()}>
           <Ionicons
-            name="checkmark-circle-sharp"
-            style={{ fontSize: 50, color: "green" }}
+            name="close-circle-sharp"
+            style={{ fontSize: 50, color: "black" }}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => swipeRef.current.swipeRight()}>
+          <Ionicons
+            name="heart-circle-sharp"
+            style={{ fontSize: 50, color: "red" }}
           />
         </TouchableOpacity>
       </View>
