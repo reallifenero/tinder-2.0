@@ -24,10 +24,7 @@ const Home = () => {
     <SafeAreaView style={tw`flex-1`}>
       {/* Header */}
       <View style={tw`items-center relative flex`}>
-        <TouchableOpacity
-          style={tw`absolute left-5`}
-          onPress={() => signOutWithGoogle()}
-        >
+        <TouchableOpacity style={tw`absolute left-5`}>
           <Image
             source={{ uri: user.photoURL }}
             style={{ height: 30, width: 30, borderRadius: 100 }}
@@ -50,6 +47,13 @@ const Home = () => {
       <View style={tw`flex-1 -mt-6`}>
         <Swiper
           cards={DUMMY_DATA}
+          stackSize={5}
+          cardIndex={0}
+          animateCardOpacity
+          verticalSwipe={false}
+          onSwipedLeft={() => {
+            console.log("swiped");
+          }}
           containerStyle={{ backgroundColor: "transparent" }}
           renderCard={(card) => (
             <View key={card.id} style={tw`relative bg-white h-3/4 rounded-xl`}>
@@ -57,8 +61,18 @@ const Home = () => {
                 style={tw`absolute top-0 h-full w-full rounded-xl`}
                 source={{ uri: card.photoURL }}
               />
-              <Text>{card.firstName}</Text>
-              <Text>{card.lastName}</Text>
+              <View
+                style={tw`absolute bottom-0 bg-white w-full h-20 
+                flex-row items-center justify-between p-3 shadow-xl rounded-xl`}
+              >
+                <View>
+                  <Text style={tw`text-xl font-bold`}>
+                    {card.firstName} {card.lastName}
+                  </Text>
+                  <Text>{card.occupation}</Text>
+                </View>
+                <Text style={tw`text-3xl font-bold`}>{card.age}</Text>
+              </View>
             </View>
           )}
         />

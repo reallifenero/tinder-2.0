@@ -1,10 +1,10 @@
 const DUMMY_DATA = [
   {
-    firstName: "Anton ",
-    lastName: "Jeejo",
-    occupation: "Software Engineer",
+    firstName: "Elon",
+    lastName: "Musk",
+    occupation: "King of Space",
     photoURL:
-      "https://pbs.twimg.com/profile_images/1540318789061197825/RiJ0V1sR_400x400.jpg",
+      "https://cdn.britannica.com/05/236505-050-17B6E34A/Elon-Musk-2022.jpg",
     age: 23,
     id: 1,
   },
@@ -18,11 +18,11 @@ const DUMMY_DATA = [
     id: 2,
   },
   {
-    firstName: "Justin ",
-    lastName: "Mateen",
-    occupation: "Product Designer",
+    firstName: "Virgil",
+    lastName: "Abloh",
+    occupation: "Designer",
     photoURL:
-      "https://i.insider.com/606730e3856cd700198a2dd1?width=1136&format=jpeg",
+      "https://media.gq.com/photos/5ad8a70688447248ea842a4c/4:3/w_1776,h_1332,c_limit/Virgil-Time-100-GQ-April-2018-041918.jpg",
     age: 37,
     id: 3,
   },
