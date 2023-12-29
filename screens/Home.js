@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import tw from "tailwind-react-native-classnames";
 import {
   View,
@@ -17,14 +17,15 @@ import useAuth from "../hooks/useAuth";
 import DUMMY_DATA from "../utils/data";
 
 const Home = () => {
+  const swipeRef = useRef(null);
+
   const { signOutWithGoogle, user } = useAuth();
   const navigation = useNavigation();
-  // console.log(user.photoURL);
+
   return (
     <SafeAreaView style={tw`flex-1`}>
-      {/* Header */}
-      <View style={tw`items-center relative flex`}>
-        <TouchableOpacity style={tw`absolute left-5`}>
+      <View style={tw`flex-row items-center justify-between px-5`}>
+        <TouchableOpacity>
           <Image
             source={{ uri: user.photoURL }}
             style={{ height: 30, width: 30, borderRadius: 100 }}
@@ -37,33 +38,54 @@ const Home = () => {
           />
         </TouchableOpacity>
         <TouchableOpacity
-          style={tw`absolute right-5`}
+          style={tw``}
           onPress={() => navigation.navigate("Chat")}
         >
           <Ionicons name="chatbubbles-sharp" size={32} color="black" />
         </TouchableOpacity>
       </View>
-      {/* Cards */}
+
       <View style={tw`flex-1 -mt-6`}>
         <Swiper
           cards={DUMMY_DATA}
           stackSize={5}
           cardIndex={0}
           animateCardOpacity
+          horizontalSwipe
+          infinite
           verticalSwipe={false}
           onSwipedLeft={() => {
             console.log("swiped");
           }}
+          overlayLabels={{
+            left: {
+              title: "NOPE",
+              style: {
+                label: {
+                  textAlign: "right",
+                  color: "red",
+                },
+              },
+            },
+            right: {
+              title: "MATCH",
+              style: {
+                label: {
+                  color: "#4DED30",
+                },
+              },
+            },
+          }}
           containerStyle={{ backgroundColor: "transparent" }}
-          renderCard={(card) => (
-            <View key={card.id} style={tw`relative bg-white h-3/4 rounded-xl`}>
+          renderCard={(card, index) => (
+            <View key={index} style={tw`relative bg-white h-3/4 rounded-xl`}>
               <Image
                 style={tw`absolute top-0 h-full w-full rounded-xl`}
                 source={{ uri: card.photoURL }}
               />
               <View
                 style={tw`absolute bottom-0 bg-white w-full h-20 
-                flex-row items-center justify-between p-3 shadow-xl rounded-xl`}
+                flex-row items-center justify-between p-3 shadow-md rounded-xl`}
               >
                 <View>
                   <Text style={tw`text-xl font-bold`}>
@@ -78,15 +100,19 @@ const Home = () => {
         />
       </View>
 
-      {/* Home View */}
-
-      <View style={tw`p-5 justify-end items-center h-full`}>
-        <Text>I am the Home Screen</Text>
-        <Button
-          title="Go to chat screen"
-          onPress={() => navigation.navigate("Chat")}
-        />
-        <Button title="Logout" onPress={() => signOutWithGoogle()} />
+      <View style={tw`flex gap-5 flex-row justify-between px-20`}>
+        <TouchableOpacity>
+          <Ionicons
+            name="close-circle-sharp"
+            style={{ fontSize: 50, color: "red" }}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Ionicons
+            name="checkmark-circle-sharp"
+            style={{ fontSize: 50, color: "green" }}
+          />
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
