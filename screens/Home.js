@@ -25,13 +25,13 @@ const Home = () => {
   return (
     <SafeAreaView style={tw`flex-1`}>
       <View style={tw`flex-row items-center justify-between px-5`}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => signOutWithGoogle()}>
           <Image
-            source={{ uri: user.photoURL }}
+            source={{ uri: user && user.photoURL }}
             style={{ height: 30, width: 30, borderRadius: 100 }}
           />
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Modal")}>
           <Image
             source={require("../assets/icon.png")}
             style={{ height: 40, width: 40, borderRadius: 100 }}
@@ -60,7 +60,7 @@ const Home = () => {
           }}
           overlayLabels={{
             left: {
-              title: "NOPE",
+              title: "NOPE!",
               style: {
                 label: {
                   textAlign: "right",
@@ -69,7 +69,7 @@ const Home = () => {
               },
             },
             right: {
-              title: "MATCH",
+              title: "YEP!",
               style: {
                 label: {
                   color: "#4DED30",
