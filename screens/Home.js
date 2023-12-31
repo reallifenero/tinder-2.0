@@ -50,6 +50,7 @@ const Home = () => {
           cards={DUMMY_DATA}
           stackSize={5}
           cardIndex={0}
+          ref={swipeRef}
           animateCardOpacity
           horizontalSwipe
           infinite
