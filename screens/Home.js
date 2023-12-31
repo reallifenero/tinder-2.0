@@ -102,7 +102,7 @@ const Home = () => {
       </View>
 
       <View style={tw`flex-row justify-evenly`}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => swipeRef.current.swipeBack()}>
           <Ionicons
             name="arrow-undo-circle-sharp"
             style={{ fontSize: 50, color: "orange" }}

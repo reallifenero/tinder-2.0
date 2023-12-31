@@ -87,12 +87,16 @@ const Modal = () => {
       <TouchableOpacity
         disabled={incompleteForm}
         style={tw.style(
-          "w-64 p-3 rounded-xl absolute bottom-10 bg-red-400",
+          "w-60 p-3 rounded-xl absolute bottom-10 bg-red-500",
           incompleteForm && "bg-gray-400"
         )}
         onPress={updateUserProfile}
       >
-        <Text style={tw.style("text-center text-white text-xl")}>
+        <Text
+          style={tw.style(
+            "text-center font-bold capitalize text-white text-xl"
+          )}
+        >
           Update Profile
         </Text>
       </TouchableOpacity>
