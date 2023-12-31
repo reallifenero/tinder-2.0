@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import tw from "tailwind-react-native-classnames";
 import {
   View,
@@ -17,14 +17,16 @@ import useAuth from "../hooks/useAuth";
 import DUMMY_DATA from "../utils/data";
 
 const Home = () => {
+  const { signOutWithGoogle, user } = useAuth();
+  const [profiles, setProfiles] = useState([]);
+  const navigation = useNavigation();
   const swipeRef = useRef(null);
 
-  const { signOutWithGoogle, user } = useAuth();
-  const navigation = useNavigation();
+  useLayoutEffect(() => {}, []);
 
   return (
     <SafeAreaView style={tw`flex-1`}>
-      <View style={tw`flex-row items-center justify-between px-5`}>
+      <View style={tw`z-10 flex-row items-center justify-between px-5`}>
         <TouchableOpacity onPress={() => signOutWithGoogle()}>
           <Image
             source={{ uri: user && user.photoURL }}
@@ -47,17 +49,15 @@ const Home = () => {
 
       <View style={tw`flex-1 -mt-6`}>
         <Swiper
-          cards={DUMMY_DATA}
+          cards={profiles}
           stackSize={5}
           cardIndex={0}
           ref={swipeRef}
           animateCardOpacity
           horizontalSwipe
-          infinite
+          // infinite
           verticalSwipe={false}
-          onSwipedLeft={() => {
-            console.log("swiped");
-          }}
+          onSwipedLeft={() => {}}
           overlayLabels={{
             left: {
               title: "NOPE!",
@@ -78,26 +78,40 @@ const Home = () => {
             },
           }}
           containerStyle={{ backgroundColor: "transparent" }}
-          renderCard={(card, index) => (
-            <View key={index} style={tw`relative bg-white h-3/4 rounded-xl`}>
-              <Image
-                style={tw`absolute top-0 h-full w-full rounded-xl`}
-                source={{ uri: card.photoURL }}
-              />
-              <View
-                style={tw`absolute bottom-0 bg-white w-full h-20 
+          renderCard={(card, index) =>
+            card ? (
+              <View key={index} style={tw`relative bg-white h-3/4 rounded-xl`}>
+                <Image
+                  style={tw`absolute top-0 h-full w-full rounded-xl`}
+                  source={{ uri: card.photoURL }}
+                />
+                <View
+                  style={tw`absolute bottom-0 bg-white w-full h-20 
                 flex-row items-center justify-between p-3 shadow-md rounded-xl`}
-              >
-                <View>
-                  <Text style={tw`text-xl font-bold`}>
-                    {card.firstName} {card.lastName}
-                  </Text>
-                  <Text>{card.occupation}</Text>
+                >
+                  <View>
+                    <Text style={tw`text-xl font-bold`}>
+                      {card.firstName} {card.lastName}
+                    </Text>
+                    <Text>{card.occupation}</Text>
+                  </View>
+                  <Text style={tw`text-3xl font-bold`}>{card.age}</Text>
                 </View>
-                <Text style={tw`text-3xl font-bold`}>{card.age}</Text>
               </View>
-            </View>
-          )}
+            ) : (
+              <View
+                style={tw`relative bg-white h-3/4 rounded-xl justify-center items-center shadow-md`}
+              >
+                <Text style={tw`font-bold pb-5`}>No More Profiles</Text>
+                <Image
+                  style={tw`h-20 w-20`}
+                  source={{
+                    uri: "https://links.papareact.com/6gb",
+                  }}
+                />
+              </View>
+            )
+          }
         />
       </View>
 
