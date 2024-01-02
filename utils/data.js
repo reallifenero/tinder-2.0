@@ -1,4 +1,4 @@
-const DUMMY_DATA = [
+const DATA = [
   {
     firstName: "Elon",
     lastName: "Musk",
@@ -28,4 +28,4 @@ const DUMMY_DATA = [
   },
 ];
 
-export default DUMMY_DATA;
+export default DATA;

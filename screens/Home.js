@@ -9,12 +9,23 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from "react-native";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  onSnapshot,
+  query,
+  setDoc,
+  where,
+} from "firebase/firestore";
 import Swiper from "react-native-deck-swiper";
 import { useNavigation } from "@react-navigation/core";
 import { Ionicons, AntDesign, Entypo } from "@expo/vector-icons";
 
 import useAuth from "../hooks/useAuth";
-import DUMMY_DATA from "../utils/data";
+import DATA from "../utils/data";
+import { db } from "../utils/firebase";
 
 const Home = () => {
   const { signOutWithGoogle, user } = useAuth();
@@ -22,7 +33,16 @@ const Home = () => {
   const navigation = useNavigation();
   const swipeRef = useRef(null);
 
-  useLayoutEffect(() => {}, []);
+  useLayoutEffect(
+    () =>
+      onSnapshot(doc(db, "users", user.uid), (snapshot) => {
+        console.log(snapshot);
+        if (!snapshot.exists) {
+          navigation.navigate("Modal");
+        }
+      }),
+    []
+  );
 
   return (
     <SafeAreaView style={tw`flex-1`}>
