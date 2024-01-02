@@ -36,7 +36,6 @@ const Home = () => {
   useLayoutEffect(
     () =>
       onSnapshot(doc(db, "users", user.uid), (snapshot) => {
-        console.log(snapshot);
         if (!snapshot.exists) {
           navigation.navigate("Modal");
         }

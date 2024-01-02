@@ -5,7 +5,6 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import { ResponseType } from "expo-auth-session";
 import {
   GoogleAuthProvider,
   signInWithCredential,
@@ -31,21 +30,11 @@ export const AuthProvider = ({ children }) => {
   const [loadingInitial, setLoadingInitial] = useState(true);
   const [request, response, promptAsync] = Google.useAuthRequest(config);
 
-  const signInWithGoogle = () => {
+  const signInWithGoogle = async () => {
     setLoading(true);
 
-    promptAsync()
+    await promptAsync()
       .then((result) => {
-        if (response?.type === "success") {
-          const { id_token, access_token } = response.params;
-          const credential = new GoogleAuthProvider.credential(
-            id_token,
-            access_token
-          );
-
-          signInWithCredential(auth, credential);
-        }
-
         return Promise.reject();
       })
       .catch((error) => {
@@ -57,6 +46,16 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    if (response?.type === "success") {
+      const { id_token, access_token } = response.params;
+      const credential = new GoogleAuthProvider.credential(
+        id_token,
+        access_token
+      );
+
+      signInWithCredential(auth, credential);
+    }
+
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);

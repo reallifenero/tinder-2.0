@@ -11,7 +11,7 @@ const Login = () => {
       <TouchableOpacity
         disabled={!request}
         style={tw`bg-gray-100 uppercase py-4 px-10 rounded-full`}
-        onPress={() => signInWithGoogle()}
+        onPress={signInWithGoogle}
       >
         <Text style={tw`uppercase text-red-400 font-bold`}>
           {loading ? "loading..." : "Login with google"}
