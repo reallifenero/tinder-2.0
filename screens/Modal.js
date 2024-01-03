@@ -25,7 +25,7 @@ const Modal = () => {
   const updateUserProfile = () => {
     setDoc(doc(db, "users", user.uid), {
       id: user.uid,
-      firstName: user.displayName,
+      displayName: user.displayName,
       photoURL: image,
       occupation,
       age,

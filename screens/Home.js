@@ -26,8 +26,9 @@ import { Ionicons, AntDesign, Entypo } from "@expo/vector-icons";
 import useAuth from "../hooks/useAuth";
 import DATA from "../utils/data";
 import { db } from "../utils/firebase";
+import generateId from "../utils/generateId";
 
-const Home = () => {
+function Home() {
   const { signOutWithGoogle, user } = useAuth();
   const [profiles, setProfiles] = useState([]);
   const navigation = useNavigation();
@@ -47,19 +48,57 @@ const Home = () => {
     let unsub;
 
     const fetchCards = async () => {
-      unsub = onSnapshot(collection(db, "users"), (snapshot) => {
-        setProfiles(
-          snapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }))
-        );
-      });
+      const passes = await getDocs(
+        collection(db, "users", user.uid, "passes")
+      ).then((snapshot) => snapshot.docs.map((doc) => doc.id));
+
+      const swipes = await getDocs(
+        collection(db, "users", user.uid, "swipes")
+      ).then((snapshot) => snapshot.docs.map((doc) => doc.id));
+
+      const passedUserIds = passes.length > 0 ? passes : ["test"];
+      const swipedUserIds = swipes.length > 0 ? swipes : ["test"];
+
+      unsub = onSnapshot(
+        query(
+          collection(db, "users"),
+          where("id", "not-in", [...passedUserIds])
+        ),
+        (snapshot) => {
+          setProfiles(
+            snapshot.docs
+              .filter((doc) => doc.id !== user.uid)
+              .map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+              }))
+          );
+        }
+      );
     };
 
     fetchCards();
     return unsub;
   });
+
+  async function swipeLeft(cardIndex) {
+    if (!profiles[cardIndex]) return;
+
+    const userSwiped = profiles[cardIndex];
+    console.log(`You swiped PASS on ${userSwiped.displayName}`);
+
+    setDoc(doc(db, "users", user.uid, "passes", userSwiped.id), userSwiped);
+  }
+
+  async function swipeRight(cardIndex) {
+    if (!profiles[cardIndex]) return;
+
+    const userSwiped = profiles[cardIndex];
+    const loggedInProfile = await (await getDoc(db, "users", user.uid)).data();
+
+    console.log(`You swiped on ${userSwiped.displayName}`);
+    setDoc(doc(db, "users", user.uid, "passes", userSwiped.id), userSwiped);
+  }
 
   return (
     <SafeAreaView style={tw`flex-1`}>
@@ -92,9 +131,13 @@ const Home = () => {
           ref={swipeRef}
           animateCardOpacity
           horizontalSwipe
-          // infinite
           verticalSwipe={false}
-          onSwipedLeft={() => {}}
+          onSwipedLeft={(cardIndex) => {
+            swipeLeft(cardIndex);
+          }}
+          onSwipedRight={(cardIndex) => {
+            swipeRight(cardIndex);
+          }}
           overlayLabels={{
             left: {
               title: "NOPE!",
@@ -128,7 +171,7 @@ const Home = () => {
                 >
                   <View>
                     <Text style={tw`text-xl font-bold`}>
-                      {card.firstName} {card.lastName}
+                      {card.displayName}
                     </Text>
                     <Text>{card.occupation}</Text>
                   </View>
@@ -174,7 +217,7 @@ const Home = () => {
       </View>
     </SafeAreaView>
   );
-};
+}
 
 export default Home;
 
