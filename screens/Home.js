@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useLayoutEffect, useRef, useState, useEffect } from "react";
 import tw from "tailwind-react-native-classnames";
 import {
   View,
@@ -36,12 +36,30 @@ const Home = () => {
   useLayoutEffect(
     () =>
       onSnapshot(doc(db, "users", user.uid), (snapshot) => {
-        if (!snapshot.exists) {
+        if (snapshot._document === null) {
           navigation.navigate("Modal");
         }
       }),
     []
   );
+
+  useEffect(() => {
+    let unsub;
+
+    const fetchCards = async () => {
+      unsub = onSnapshot(collection(db, "users"), (snapshot) => {
+        setProfiles(
+          snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }))
+        );
+      });
+    };
+
+    fetchCards();
+    return unsub;
+  });
 
   return (
     <SafeAreaView style={tw`flex-1`}>

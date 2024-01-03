@@ -18,16 +18,16 @@ const Modal = () => {
   const navigation = useNavigation();
   const [image, setImage] = useState("");
   const [age, setAge] = useState("");
-  const [job, setJob] = useState("");
+  const [occupation, setOccupation] = useState("");
 
-  const incompleteForm = !image || !age || !job;
+  const incompleteForm = !image || !age || !occupation;
 
   const updateUserProfile = () => {
     setDoc(doc(db, "users", user.uid), {
       id: user.uid,
-      displayName: user.displayName,
+      firstName: user.displayName,
       photoURL: image,
-      job,
+      occupation,
       age,
       timestamp,
     })
@@ -68,8 +68,8 @@ const Modal = () => {
       <TextInput
         placeholder="Enter your occupation"
         style={tw`text-center w-80 text-xl pb-2 border rounded-md`}
-        onChangeText={setJob}
-        value={job}
+        onChangeText={setOccupation}
+        value={occupation}
       />
       <Text style={tw.style("text-center p-4 font-bold text-red-400")}>
         Step 3: How old are you?
