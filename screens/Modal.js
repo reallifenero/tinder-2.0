@@ -22,7 +22,7 @@ const Modal = () => {
 
   const incompleteForm = !image || !age || !occupation;
 
-  const updateUserProfile = () => {
+  function updateUserProfile() {
     setDoc(doc(db, "users", user.uid), {
       id: user.uid,
       displayName: user.displayName,
@@ -37,7 +37,7 @@ const Modal = () => {
       .catch((err) => {
         Alert.alert("Error", err.message);
       });
-  };
+  }
 
   return (
     <View style={tw.style("flex-1 items-center pt-1")}>
