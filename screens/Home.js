@@ -121,6 +121,14 @@ function Home() {
             usersMatched: [user.uid, userSwiped.id],
             timestamp: serverTimestamp(),
           });
+
+          navigation.navigate("Match", {
+            loggedInProfile,
+            userSwiped,
+          });
+        } else {
+          // user has swiped / didn't get swiped on
+          console.log(`You Swiped on ${userSwiped.displayName}`);
         }
       }
     );
