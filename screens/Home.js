@@ -16,6 +16,7 @@ import {
   getDocs,
   onSnapshot,
   query,
+  serverTimestamp,
   setDoc,
   where,
 } from "firebase/firestore";
@@ -97,7 +98,32 @@ function Home() {
     const loggedInProfile = await (await getDoc(db, "users", user.uid)).data();
 
     console.log(`You swiped on ${userSwiped.displayName}`);
-    setDoc(doc(db, "users", user.uid, "passes", userSwiped.id), userSwiped);
+    // check if a user swiped on you
+
+    getDoc(doc(db, "users", userSwiped.id, "swipes", user.uid)).then(
+      (documentSnapshot) => {
+        if (documentSnapshot.exists()) {
+          // user has matched with you before you matched with them...
+          // create a MATCH!
+          console.log(`Hooray, You MATCHED with ${userSwiped.displayName}`);
+
+          setDoc(
+            doc(db, "users", user.uid, "swipes", userSwiped.id),
+            userSwiped
+          );
+
+          // CREATE A MATCH!!
+          setDoc(doc(db, "matches", generateId(user.uid, userSwiped.id)), {
+            users: {
+              [user.uid]: loggedInProfile,
+              [userSwiped.id]: userSwiped,
+            },
+            usersMatched: [user.uid, userSwiped.id],
+            timestamp: serverTimestamp(),
+          });
+        }
+      }
+    );
   }
 
   return (
