@@ -140,7 +140,12 @@ function Home() {
         <TouchableOpacity onPress={() => signOutWithGoogle()}>
           <Image
             source={{ uri: user && user.photoURL }}
-            style={{ height: 30, width: 30, borderRadius: 100 }}
+            style={{
+              height: 30,
+              width: 30,
+              borderRadius: 100,
+              objectFit: "contain",
+            }}
           />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("Modal")}>
