@@ -104,7 +104,7 @@ function Home() {
       (documentSnapshot) => {
         if (documentSnapshot.exists()) {
           // user has matched with you before you matched with them...
-          // create a MATCH!
+          // create a match!
           console.log(`Hooray, You MATCHED with ${userSwiped.displayName}`);
 
           setDoc(
