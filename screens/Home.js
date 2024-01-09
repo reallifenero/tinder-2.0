@@ -78,6 +78,8 @@ function Home() {
       );
     };
 
+    console.log(profiles);
+
     fetchCards();
     return unsub;
   });
