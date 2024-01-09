@@ -68,7 +68,9 @@ function Home() {
         (snapshot) => {
           setProfiles(
             snapshot.docs
-              // .filter((doc) => doc.id !== user.uid)
+              .filter((doc) => {
+                // return doc.id !== user.uid;
+              })
               .map((doc) => ({
                 id: doc.id,
                 ...doc.data(),
@@ -99,39 +101,39 @@ function Home() {
 
     console.log(`You swiped on ${userSwiped.displayName}`);
     // check if a user swiped on you
+    console.log(loggedInProfile);
+    // getDoc(doc(db, "users", userSwiped.id, "swipes", user.uid)).then(
+    //   (documentSnapshot) => {
+    //     if (documentSnapshot.exists()) {
+    //       // user has matched with you before you matched with them...
+    //       // create a match!
+    //       console.log(`Hooray, You MATCHED with ${userSwiped.displayName}`);
 
-    getDoc(doc(db, "users", userSwiped.id, "swipes", user.uid)).then(
-      (documentSnapshot) => {
-        if (documentSnapshot.exists()) {
-          // user has matched with you before you matched with them...
-          // create a match!
-          console.log(`Hooray, You MATCHED with ${userSwiped.displayName}`);
+    //       setDoc(
+    //         doc(db, "users", user.uid, "swipes", userSwiped.id),
+    //         userSwiped
+    //       );
 
-          setDoc(
-            doc(db, "users", user.uid, "swipes", userSwiped.id),
-            userSwiped
-          );
+    //       // CREATE A MATCH!!
+    //       setDoc(doc(db, "matches", generateId(user.uid, userSwiped.id)), {
+    //         users: {
+    //           [user.uid]: loggedInProfile,
+    //           [userSwiped.id]: userSwiped,
+    //         },
+    //         usersMatched: [user.uid, userSwiped.id],
+    //         timestamp: serverTimestamp(),
+    //       });
 
-          // CREATE A MATCH!!
-          setDoc(doc(db, "matches", generateId(user.uid, userSwiped.id)), {
-            users: {
-              [user.uid]: loggedInProfile,
-              [userSwiped.id]: userSwiped,
-            },
-            usersMatched: [user.uid, userSwiped.id],
-            timestamp: serverTimestamp(),
-          });
-
-          navigation.navigate("Match", {
-            loggedInProfile,
-            userSwiped,
-          });
-        } else {
-          // user has swiped / didn't get swiped on
-          console.log(`You Swiped on ${userSwiped.displayName}`);
-        }
-      }
-    );
+    //       navigation.navigate("Match", {
+    //         loggedInProfile,
+    //         userSwiped,
+    //       });
+    //     } else {
+    //       // user has swiped / didn't get swiped on
+    //       console.log(`You Swiped on ${userSwiped.displayName}`);
+    //     }
+    //   }
+    // );
   }
 
   return (
