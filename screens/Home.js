@@ -68,7 +68,7 @@ function Home() {
         (snapshot) => {
           setProfiles(
             snapshot.docs
-              .filter((doc) => doc.id !== user.uid)
+              // .filter((doc) => doc.id !== user.uid)
               .map((doc) => ({
                 id: doc.id,
                 ...doc.data(),
@@ -77,8 +77,6 @@ function Home() {
         }
       );
     };
-
-    console.log(profiles);
 
     fetchCards();
     return unsub;
