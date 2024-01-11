@@ -19,7 +19,7 @@ import {
   serverTimestamp,
   setDoc,
   where,
-} from "firebase/firestore";
+} from "@firebase/firestore";
 import Swiper from "react-native-deck-swiper";
 import { useNavigation } from "@react-navigation/core";
 import { Ionicons, AntDesign, Entypo } from "@expo/vector-icons";
@@ -48,6 +48,8 @@ function Home() {
   useEffect(() => {
     let unsub;
 
+    // if (!user.uid) return;
+
     const fetchCards = async () => {
       const passes = await getDocs(
         collection(db, "users", user.uid, "passes")
@@ -63,14 +65,12 @@ function Home() {
       unsub = onSnapshot(
         query(
           collection(db, "users"),
-          where("id", "not-in", [...passedUserIds])
+          where("id", "not-in", [...passedUserIds, ...swipedUserIds])
         ),
         (snapshot) => {
           setProfiles(
             snapshot.docs
-              .filter((doc) => {
-                // return doc.id !== user.uid;
-              })
+              .filter((doc) => doc.id !== user.uid)
               .map((doc) => ({
                 id: doc.id,
                 ...doc.data(),
@@ -99,41 +99,40 @@ function Home() {
     const userSwiped = profiles[cardIndex];
     const loggedInProfile = await (await getDoc(db, "users", user.uid)).data();
 
-    console.log(`You swiped on ${userSwiped.displayName}`);
     // check if a user swiped on you
-    console.log(loggedInProfile);
-    // getDoc(doc(db, "users", userSwiped.id, "swipes", user.uid)).then(
-    //   (documentSnapshot) => {
-    //     if (documentSnapshot.exists()) {
-    //       // user has matched with you before you matched with them...
-    //       // create a match!
-    //       console.log(`Hooray, You MATCHED with ${userSwiped.displayName}`);
 
-    //       setDoc(
-    //         doc(db, "users", user.uid, "swipes", userSwiped.id),
-    //         userSwiped
-    //       );
+    getDoc(doc(db, "users", userSwiped.id, "swipes", user.uid)).then(
+      (documentSnapshot) => {
+        if (documentSnapshot.exists()) {
+          // user has matched with you before you matched with them...
+          // create a match!
+          console.log(`Hooray, You MATCHED with ${userSwiped.displayName}`);
 
-    //       // CREATE A MATCH!!
-    //       setDoc(doc(db, "matches", generateId(user.uid, userSwiped.id)), {
-    //         users: {
-    //           [user.uid]: loggedInProfile,
-    //           [userSwiped.id]: userSwiped,
-    //         },
-    //         usersMatched: [user.uid, userSwiped.id],
-    //         timestamp: serverTimestamp(),
-    //       });
+          setDoc(
+            doc(db, "users", user.uid, "swipes", userSwiped.id),
+            userSwiped
+          );
 
-    //       navigation.navigate("Match", {
-    //         loggedInProfile,
-    //         userSwiped,
-    //       });
-    //     } else {
-    //       // user has swiped / didn't get swiped on
-    //       console.log(`You Swiped on ${userSwiped.displayName}`);
-    //     }
-    //   }
-    // );
+          // CREATE A MATCH!!
+          setDoc(doc(db, "matches", generateId(user.uid, userSwiped.id)), {
+            users: {
+              [user.uid]: loggedInProfile,
+              [userSwiped.id]: userSwiped,
+            },
+            usersMatched: [user.uid, userSwiped.id],
+            timestamp: serverTimestamp(),
+          });
+
+          navigation.navigate("Match", {
+            loggedInProfile,
+            userSwiped,
+          });
+        } else {
+          // user has swiped / didn't get swiped on
+          console.log(`You Swiped on ${userSwiped.displayName}`);
+        }
+      }
+    );
   }
 
   return (
