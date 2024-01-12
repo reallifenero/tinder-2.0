@@ -99,7 +99,7 @@ function Home() {
     const userSwiped = profiles[cardIndex];
     const loggedInProfile = await (await getDoc(db, "users", user.uid)).data();
 
-    // check if a user swiped on you
+    // check if a user swiped on YOU
 
     getDoc(doc(db, "users", userSwiped.id, "swipes", user.uid)).then(
       (documentSnapshot) => {
