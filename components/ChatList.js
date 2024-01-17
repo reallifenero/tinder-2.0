@@ -5,6 +5,9 @@ import tw from "tailwind-react-native-classnames";
 import { db } from "../utils/firebase";
 import useAuth from "../hooks/useAuth";
 
+// components
+import ChatRow from "./ChatRow";
+
 function ChatList() {
   const [matches, setMatches] = useState();
   const { user } = useAuth();
@@ -26,8 +29,6 @@ function ChatList() {
         }
       );
   }, [user]);
-
-  console.log(matches);
 
   return matches !== undefined && matches.length > 0 ? (
     <FlatList

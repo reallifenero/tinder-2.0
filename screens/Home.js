@@ -101,7 +101,7 @@ function Home() {
 
     // check if a user swiped on YOU
 
-    getDoc(doc(db, "users", userSwiped.id, "swipes", user.uid)).then(
+    getDocs(doc(db, "users", userSwiped.id, "swipes", user.uid)).then(
       (documentSnapshot) => {
         if (documentSnapshot.exists()) {
           // user has matched with you before you matched with them...
@@ -159,7 +159,7 @@ function Home() {
           style={tw``}
           onPress={() => navigation.navigate("Chat")}
         >
-          <Ionicons name="chatbubbles-sharp" size={32} color="black" />
+          <Ionicons name="chatbubbles-sharp" size={32} color="#FF5864" />
         </TouchableOpacity>
       </View>
 
@@ -245,13 +245,13 @@ function Home() {
         <TouchableOpacity onPress={() => swipeRef.current.swipeLeft()}>
           <Ionicons
             name="close-circle-sharp"
-            style={{ fontSize: 50, color: "black" }}
+            style={{ fontSize: 50, color: "grey" }}
           />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => swipeRef.current.swipeRight()}>
           <Ionicons
             name="heart-circle-sharp"
-            style={{ fontSize: 50, color: "red" }}
+            style={{ fontSize: 50, color: "#FF5864" }}
           />
         </TouchableOpacity>
       </View>
