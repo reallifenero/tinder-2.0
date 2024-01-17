@@ -1,9 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text } from "react-native";
+import { collection, onSnapshot, query, where } from "@firebase/firestore";
+import tw from "tailwind-react-native-classnames";
+import { db } from "../utils/firebase";
+import useAuth from "../hooks/useAuth";
 
 function ChatList() {
+  const [matches, setMatches] = useState();
+  const { user } = useAuth();
+
+  useEffect(() => {
+    () =>
+      onSnapshot(
+        query(
+          collection(db, "matches"),
+          where("usersMatched", "array-contains", user.uid)
+        ),
+        (snapshot) => {
+          setMatches(
+            snapshot.docs.map((doc) => ({
+              id: doc.id,
+              ...doc.data(),
+            }))
+          );
+        }
+      );
+  }, [user]);
+
+  console.log(matches);
+
   return (
-    <View>
+    <View style={tw`px-2`}>
       <Text>ChatList</Text>
     </View>
   );
