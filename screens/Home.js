@@ -13,12 +13,12 @@ import {
   collection,
   doc,
   getDoc,
+  setDoc,
   getDocs,
   onSnapshot,
   query,
-  serverTimestamp,
-  setDoc,
   where,
+  serverTimestamp,
 } from "@firebase/firestore";
 import Swiper from "react-native-deck-swiper";
 import { useNavigation } from "@react-navigation/core";
@@ -145,7 +145,7 @@ function Home() {
         await getDoc(doc(db, "users", user.uid))
       ).data();
 
-      console.log("loggedInProfile", loggedInProfile);
+      // console.log("loggedInProfile", loggedInProfile);
 
       getDoc(doc(db, "users", userSwiped.id, "swipes", user.uid)).then(
         (docSnap) => {
@@ -160,12 +160,12 @@ function Home() {
                 [userSwiped.id]: userSwiped,
               },
               usersMatched: [user.uid, userSwiped.id],
-              timestamp,
+              timestamp: serverTimestamp(),
             });
 
             console.log(loggedInProfile, userSwiped);
 
-            navigation.navigate("Match", {
+            navigation.navigate("Matched", {
               loggedInProfile,
               userSwiped,
             });
