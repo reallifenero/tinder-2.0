@@ -135,14 +135,6 @@ function Home() {
   //   );
   // }
   const swipeRight = async (cardIndex) => {
-    // if (!profiles[cardIndex]) {
-    //   return;
-    // }
-
-    // const userSwiped = profiles[cardIndex];
-
-    // setDoc(doc(db, "users", user.uid, "swipes", userSwiped.id), userSwiped);
-
     try {
       if (!profiles[cardIndex]) {
         return;
@@ -153,7 +145,7 @@ function Home() {
         await getDoc(doc(db, "users", user.uid))
       ).data();
 
-      // console.log("loggedInProfile", loggedInProfile);
+      console.log("loggedInProfile", loggedInProfile);
 
       getDoc(doc(db, "users", userSwiped.id, "swipes", user.uid)).then(
         (docSnap) => {
