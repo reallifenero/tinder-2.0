@@ -83,7 +83,6 @@ android {
 
     namespace 'host.exp.exponent'
     defaultConfig {
-        manifestPlaceholders = [appAuthRedirectScheme: 'dev.expo.app']
         applicationId 'host.exp.exponent'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion

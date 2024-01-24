@@ -36,16 +36,6 @@
           <string>com.googleusercontent.apps.910920738929-npjt6fgj5ll8j2jaoso1h3f73ign7g60</string>
         </array>
       </dict>
-      <dict>
-        <key>CFBundleTypeRole</key>
-        <string>Editor</string>
-        <key>CFBundleURLName</key>
-        <string>OAuthRedirect</string>
-        <key>CFBundleURLSchemes</key>
-        <array>
-          <string>host.exp.exponent</string>
-        </array>
-      </dict>
     </array>
     <key>CFBundleVersion</key>
     <string>1</string>
