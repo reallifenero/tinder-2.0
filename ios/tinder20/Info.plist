@@ -28,6 +28,7 @@
         <key>CFBundleURLSchemes</key>
         <array>
           <string>host.exp.exponent</string>
+          <string>host.exp.exponent</string>
         </array>
       </dict>
       <dict>
