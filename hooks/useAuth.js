@@ -17,11 +17,15 @@ import { auth, db } from "../utils/firebase";
 const AuthContext = createContext({});
 
 const config = {
-  iosClientId: process.env.EXPO_PUBLIC_IOS_CLIENT_ID,
+  iosClientId:
+    "910920738929-npjt6fgj5ll8j2jaoso1h3f73ign7g60.apps.googleusercontent.com",
+  // process.env.EXPO_PUBLIC_IOS_CLIENT_ID,
   webClientId: process.env.EXPO_PUBLIC_WEB_CLIENT_ID,
   expoClientId: process.env.EXPO_PUBLIC_EXPO_CLIENT_ID,
   androidClientId: process.env.EXPO_PUBLIC_ANDROID_CLIENT_ID,
 };
+
+console.log(config);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
