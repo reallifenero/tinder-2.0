@@ -27,7 +27,7 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
-          <string>host.exp.exponent</string>
+          <string>tinder-2-0</string>
           <string>host.exp.exponent</string>
         </array>
       </dict>
