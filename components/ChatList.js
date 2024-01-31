@@ -28,6 +28,8 @@ function ChatList() {
           );
         }
       );
+
+    // console.log(matches);
   }, [user]);
 
   return matches !== undefined && matches.length > 0 ? (
