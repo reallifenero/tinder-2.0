@@ -88,7 +88,6 @@ function Home() {
     if (!profiles[cardIndex]) return;
 
     const userSwiped = profiles[cardIndex];
-    console.log(`You swiped PASS on ${userSwiped.displayName}`);
 
     setDoc(doc(db, "users", user.uid, "passes", userSwiped.id), userSwiped);
   }
@@ -145,8 +144,6 @@ function Home() {
         await getDoc(doc(db, "users", user.uid))
       ).data();
 
-      // console.log("loggedInProfile", loggedInProfile);
-
       getDoc(doc(db, "users", userSwiped.id, "swipes", user.uid)).then(
         (docSnap) => {
           if (docSnap.exists()) {
@@ -162,8 +159,6 @@ function Home() {
               usersMatched: [user.uid, userSwiped.id],
               timestamp: serverTimestamp(),
             });
-
-            console.log(loggedInProfile, userSwiped);
 
             navigation.navigate("Matched", {
               loggedInProfile,
