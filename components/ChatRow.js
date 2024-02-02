@@ -20,15 +20,17 @@ function ChatRow({ matchDetails }) {
         tw`flex-row items-center py-3 px-5 bg-white mx-3 my-1 rounded-lg shadow-md`,
         styles.cardShadow,
       ]}
-      onPress={navigation.navigate("Messages", { matchDetails })}
+      onPress={() => navigation.navigate("Messages", { matchDetails })}
     >
       <Image
         style={tw`rounded-full h-16 w-16 mr-4`}
         source={{ uri: matchedUserInfo?.photoURL }}
       />
       <View>
-        <Text style={tw`font-medium text-lg`}>Khawi Leonard</Text>
-        <Text>Small Forward (LA Clippers)</Text>
+        <Text style={tw`font-medium text-lg`}>
+          {matchedUserInfo?.displayName}
+        </Text>
+        <Text>Say Hi! 👋🏾 </Text>
       </View>
     </TouchableOpacity>
   );

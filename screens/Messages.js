@@ -1,5 +1,6 @@
-import { View, Text, SafeAreaView } from "react-native";
 import React from "react";
+import { View, Text, SafeAreaView } from "react-native";
+import tw from "tailwind-react-native-classnames";
 
 import Header from "../components/Header";
 
@@ -7,7 +8,7 @@ const Messages = () => {
   return (
     <SafeAreaView>
       <Header title="Message" callEnabled />
-      <Text>Messages</Text>
+      <View style={tw`p-5`}>Messages</View>
     </SafeAreaView>
   );
 };

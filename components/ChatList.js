@@ -3,7 +3,6 @@ import useAuth from "../hooks/useAuth";
 import React, { useEffect, useState } from "react";
 import { View, Text, FlatList } from "react-native";
 import tw from "tailwind-react-native-classnames";
-import { useNavigation } from "@react-navigation/core";
 import { collection, onSnapshot, query, where } from "@firebase/firestore";
 
 // components
@@ -11,7 +10,6 @@ import ChatRow from "./ChatRow";
 
 function ChatList() {
   const [matches, setMatches] = useState([]);
-  const navigation = useNavigation();
   const { user } = useAuth();
 
   useEffect(() => {
@@ -38,12 +36,7 @@ function ChatList() {
       style={tw`px-2`}
       data={matches}
       keyExtractor={(item) => item.id}
-      renderItem={({ item }) => (
-        <ChatRow
-          matchDetails={item}
-          // onPress={navigation.navigate("Messages")}
-        />
-      )}
+      renderItem={({ item }) => <ChatRow matchDetails={item} />}
     />
   ) : (
     <View style={tw`p-5`}>
