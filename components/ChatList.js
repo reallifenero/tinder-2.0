@@ -9,7 +9,7 @@ import useAuth from "../hooks/useAuth";
 import ChatRow from "./ChatRow";
 
 function ChatList() {
-  const [matches, setMatches] = useState();
+  const [matches, setMatches] = useState([]);
   const { user } = useAuth();
 
   useEffect(() => {
@@ -27,11 +27,10 @@ function ChatList() {
         );
       }
     );
-
-    console.log(matches);
     return unsubscribe;
-  }, []);
+  }, [user]);
 
+  // console.log(matches);
   return matches.length > 0 ? (
     <FlatList
       style={tw`px-2`}
