@@ -9,3 +9,4 @@
 - React Native
 - Expo
 - Styled Components
+- Tailwind

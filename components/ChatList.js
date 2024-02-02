@@ -13,26 +13,26 @@ function ChatList() {
   const { user } = useAuth();
 
   useEffect(() => {
-    () =>
-      onSnapshot(
-        query(
-          collection(db, "matches"),
-          where("usersMatched", "array-contains", user.uid)
-        ),
-        (snapshot) => {
-          setMatches(
-            snapshot.docs.map((doc) => ({
-              id: doc.id,
-              ...doc.data(),
-            }))
-          );
-        }
-      );
+    const unsubscribe = onSnapshot(
+      query(
+        collection(db, "matches"),
+        where("usersMatched", "array-contains", user.uid)
+      ),
+      (snapshot) => {
+        setMatches(
+          snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }))
+        );
+      }
+    );
 
-    // console.log(matches);
-  }, [user]);
+    console.log(matches);
+    return unsubscribe;
+  }, []);
 
-  return matches !== undefined && matches.length > 0 ? (
+  return matches.length > 0 ? (
     <FlatList
       style={tw`px-2`}
       data={matches}
