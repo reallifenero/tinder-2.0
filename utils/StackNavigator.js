@@ -9,6 +9,7 @@ import Chat from "../screens/Chat";
 import Login from "../screens/Login";
 import Modal from "../screens/Modal";
 import Matched from "../screens/Matched.js";
+import Messages from "../screens/Messages.js";
 
 import useAuth from "../hooks/useAuth";
 
@@ -25,6 +26,7 @@ const StackNavigator = () => {
           <Stack.Group>
             <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="Chat" component={Chat} />
+            <Stack.Screen name="Messages" component={Messages} />
           </Stack.Group>
           <Stack.Group screenOptions={{ presentation: "modal" }}>
             <Stack.Screen name="Modal" component={Modal} />
