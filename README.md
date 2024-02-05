@@ -10,3 +10,5 @@
 - Expo
 - Styled Components
 - Tailwind
+
+Code credits: Sonny Sangha
