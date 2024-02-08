@@ -12,3 +12,4 @@
 - Tailwind
 
 Code credits: Sonny Sangha
+Built By: [NERØ](https://x.com/reallifenero).
