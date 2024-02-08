@@ -9,7 +9,7 @@ import useAuth from "../hooks/useAuth";
 import getMatchedUserInfo from "../utils/getMatchedUserInfo";
 
 const Messages = () => {
-  const user = useAuth();
+  const { user } = useAuth();
   const { params } = useRoute();
 
   const { matchDetails } = params;
