@@ -60,7 +60,7 @@ const Messages = () => {
         style={tw`flex-row justify-between items-center border-t border-gray-200 px-5 py-2`}
       >
         <TextInput
-          style={tw`h-10 text-md shadow-md rounded-xl bg-gray-100 w-60 px-2`}
+          style={tw`h-10 text-base shadow-md rounded-xl bg-gray-100 w-60 px-2`}
           placeholder="Send Message..."
           onChangeText={setInput}
           onSubmitEditing={sendMessage}
