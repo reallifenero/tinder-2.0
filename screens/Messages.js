@@ -3,6 +3,7 @@ import { useRoute } from "@react-navigation/core";
 import {
   View,
   Text,
+  Platform,
   SafeAreaView,
   TextInput,
   Button,
