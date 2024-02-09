@@ -8,6 +8,8 @@ import {
   Button,
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
+  Keyboard,
+  FlatList,
 } from "react-native";
 import tw from "tailwind-react-native-classnames";
 
@@ -19,6 +21,7 @@ const Messages = () => {
   const { user } = useAuth();
   const { params } = useRoute();
   const [input, setInput] = useState(null);
+  const [messages, setMessages] = useState();
 
   const { matchDetails } = params;
   const sendMessage = () => {};
@@ -31,66 +34,30 @@ const Messages = () => {
       />
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : height}
-        style={tw`flex`}
+        style={tw`flex-1`}
         keyboardVerticalOffset={10}
       >
-        <TouchableWithoutFeedback>
-          <>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-            <Text style={tw``}>TEXT</Text>
-          </>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss()}>
+          <FlatList
+            data={messages}
+            style={tw`pl-4`}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item: message }) =>
+              message.userId === user.uid ? (
+                <SenderMessage key={message.id} message={message} />
+              ) : (
+                <ReceiverMessage key={message.id} message={message} />
+              )
+            }
+          />
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
-
-      <Text style={tw``}>Messages</Text>
 
       <View
         style={tw`flex-row justify-between items-center border-t border-gray-200 px-5 py-2`}
       >
         <TextInput
-          style={tw`h-20 text-lg shadow-md p-2 bg-gray-100 rounded-xl w-60 h-10`}
+          style={tw`h-10 text-lg shadow-md p-2 bg-gray-100 rounded-xl w-60`}
           placeholder="Send Message..."
           onChangeText={setInput}
           onSubmitEditing={sendMessage}
