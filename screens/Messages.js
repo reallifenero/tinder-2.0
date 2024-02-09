@@ -14,6 +14,9 @@ import {
 import tw from "tailwind-react-native-classnames";
 
 import Header from "../components/Header";
+import SenderMessage from "../components/SenderMessage";
+import ReceiverMessage from "../components/ReceiverMessage";
+
 import useAuth from "../hooks/useAuth";
 import getMatchedUserInfo from "../utils/getMatchedUserInfo";
 
@@ -21,7 +24,7 @@ const Messages = () => {
   const { user } = useAuth();
   const { params } = useRoute();
   const [input, setInput] = useState(null);
-  const [messages, setMessages] = useState();
+  const [messages, setMessages] = useState(null);
 
   const { matchDetails } = params;
   const sendMessage = () => {};
@@ -57,7 +60,7 @@ const Messages = () => {
         style={tw`flex-row justify-between items-center border-t border-gray-200 px-5 py-2`}
       >
         <TextInput
-          style={tw`h-10 text-lg shadow-md p-2 bg-gray-100 rounded-xl w-60`}
+          style={tw`h-10 text-md shadow-md rounded-xl bg-gray-100 w-60 px-2`}
           placeholder="Send Message..."
           onChangeText={setInput}
           onSubmitEditing={sendMessage}
