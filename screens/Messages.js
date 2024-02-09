@@ -37,7 +37,7 @@ const Messages = () => {
         style={tw`flex-1`}
         keyboardVerticalOffset={10}
       >
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss()}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <FlatList
             data={messages}
             style={tw`pl-4`}
