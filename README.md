@@ -11,5 +11,5 @@
 - Styled Components
 - Tailwind
 
-Code credits: Sonny Sangha
-Built By: [NERØ](https://x.com/reallifenero).
+Code credits: [Sonny Sangha](https://youtube.com/@sonnysangha)
+Built By: [NERØ](https://github.com.com/reallifenero)
