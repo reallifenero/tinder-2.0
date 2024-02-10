@@ -1,6 +1,6 @@
 # tinder-2.0
 
-## A tinder application built with react native and expo.
+A tinder mobile application built with react native and expo.
 
 # Tooling
 
@@ -11,6 +11,6 @@
 - Styled Components
 - Tailwind
 
-### Code credits: [Sonny Sangha](https://youtube.com/@sonnysangha)
+## Code credits
 
-### Built By: [NERØ](https://github.com.com/reallifenero)
+[Sonny Sangha](https://youtube.com/@sonnysangha)
