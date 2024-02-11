@@ -10,7 +10,15 @@ const SenderMessage = ({ message }) => {
         { alignSelf: "flex-start" },
       ]}
     >
-      <Text style={tw`text-white`}>{message.message}</Text>
+      <Image
+        style={tw`h-12 w-12 rounded-full absolute top-0 left-14`}
+        source={
+          {
+            // uri: message,
+          }
+        }
+      />
+      <Text style={tw`text-white`}>{message}</Text>
     </View>
   );
 };

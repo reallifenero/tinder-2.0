@@ -6,6 +6,7 @@ import {
   Platform,
   SafeAreaView,
   TextInput,
+  StyleSheet,
   Button,
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
@@ -37,8 +38,8 @@ const Messages = () => {
         callEnabled
       />
       <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : height}
-        style={tw`flex-1`}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={tw`h-5/6`}
         keyboardVerticalOffset={10}
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -48,9 +49,9 @@ const Messages = () => {
             keyExtractor={(item) => item.id}
             renderItem={({ item: message }) =>
               message.userId === user.uid ? (
-                <SenderMessage key={message.id} message={message} />
+                <SenderMessage key={"message.id"} message={"message"} />
               ) : (
-                <ReceiverMessage key={message.id} message={message} />
+                <ReceiverMessage key={"message.id"} message={"message"} />
               )
             }
           />
@@ -63,9 +64,9 @@ const Messages = () => {
         <TextInput
           style={tw`h-10 text-base shadow-md rounded-xl bg-gray-100 w-60 px-2`}
           placeholder="Send Message..."
-          onChangeText={setInput}
-          onSubmitEditing={sendMessage}
-          value={input}
+          // onChangeText={setInput}
+          // onSubmitEditing={sendMessage}
+          // value={input}
         />
 
         <Button
@@ -80,3 +81,9 @@ const Messages = () => {
 };
 
 export default Messages;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
