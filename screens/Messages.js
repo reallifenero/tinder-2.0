@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRoute } from "@react-navigation/core";
 import {
   View,
@@ -14,25 +14,63 @@ import {
   FlatList,
 } from "react-native";
 import tw from "tailwind-react-native-classnames";
+import {
+  query,
+  addDoc,
+  orderBy,
+  collection,
+  serverTimestamp,
+  onSnapshot,
+} from "@firebase/firestore";
 
 import Header from "../components/Header";
 import SenderMessage from "../components/SenderMessage";
 import ReceiverMessage from "../components/ReceiverMessage";
 
+import { db } from "../utils/firebase";
 import useAuth from "../hooks/useAuth";
 import getMatchedUserInfo from "../utils/getMatchedUserInfo";
 
 const Messages = () => {
   const { user } = useAuth();
   const { params } = useRoute();
-  const [input, setInput] = useState(null);
-  const [messages, setMessages] = useState(null);
+  const [input, setInput] = useState("");
+  const [messages, setMessages] = useState([]);
 
   const { matchDetails } = params;
-  const sendMessage = () => {};
+
+  useEffect(() => {
+    onSnapshot(
+      query(
+        collection(db, "matches", matchDetails.id, "messages"),
+        orderBy("timestamp", "desc")
+      ),
+      (snapshot) =>
+        setMessages(
+          snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }))
+        )
+    );
+  }, [matchDetails, db]);
+
+  const sendMessage = () => {
+    addDoc(collection(db, "matches", matchDetails.id, "messages"), {
+      timeStamp: serverTimestamp(),
+      userId: user.uid,
+      displayName: user.displayName,
+      photoURL: matchDetails.users[user.uid].photoURL,
+      message: input,
+    });
+
+    setInput("");
+  };
+
+  console.log(messages);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={tw`flex-1`}>
       <Header
         title={getMatchedUserInfo(matchDetails?.users, user.uid).displayName}
         callEnabled
@@ -49,9 +87,9 @@ const Messages = () => {
             keyExtractor={(item) => item.id}
             renderItem={({ item: message }) =>
               message.userId === user.uid ? (
-                <SenderMessage key={"message.id"} message={"message"} />
+                <SenderMessage key={message.id} message={message} />
               ) : (
-                <ReceiverMessage key={"message.id"} message={"message"} />
+                <ReceiverMessage key={message.id} message={message} />
               )
             }
           />
@@ -64,9 +102,9 @@ const Messages = () => {
         <TextInput
           style={tw`h-10 text-base shadow-md rounded-xl bg-gray-100 w-60 px-2`}
           placeholder="Send Message..."
-          // onChangeText={setInput}
-          // onSubmitEditing={sendMessage}
-          // value={input}
+          onChangeText={setInput}
+          onSubmitEditing={sendMessage}
+          value={input}
         />
 
         <Button
