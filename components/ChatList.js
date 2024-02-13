@@ -30,7 +30,6 @@ function ChatList() {
     return unsubscribe;
   }, [user]);
 
-  // console.log(matches);
   return matches.length > 0 ? (
     <FlatList
       style={tw`px-2`}

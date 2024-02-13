@@ -35,25 +35,31 @@ const Messages = () => {
   const { user } = useAuth();
   const { params } = useRoute();
   const [input, setInput] = useState("");
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState();
 
   const { matchDetails } = params;
 
-  useEffect(() => {
+  useEffect(
     onSnapshot(
       query(
         collection(db, "matches", matchDetails.id, "messages"),
         orderBy("timestamp", "desc")
       ),
-      (snapshot) =>
+      function (snapshot) {
+        console.log(snapshot);
+
         setMessages(
           snapshot.docs.map((doc) => ({
             id: doc.id,
             ...doc.data(),
           }))
-        )
-    );
-  }, [matchDetails, db]);
+        );
+      }
+    ),
+    [matchDetails, db]
+  );
+
+  // console.log(messages);
 
   const sendMessage = () => {
     addDoc(collection(db, "matches", matchDetails.id, "messages"), {
@@ -66,8 +72,6 @@ const Messages = () => {
 
     setInput("");
   };
-
-  console.log(messages);
 
   return (
     <SafeAreaView style={tw`flex-1`}>
