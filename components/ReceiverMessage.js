@@ -15,7 +15,7 @@ const ReceiverMessage = ({ message }) => {
       />
       <View
         style={[
-          tw`bg-red-800 rounded rounded-tl-none px-5 py-3 my-2 w-4/5 max-w-sm text-gray-100 text-sm capitalize`,
+          tw`bg-red-800 rounded rounded-tl-none px-5 py-3 my-2 w-4/5 text-gray-100 text-sm capitalize`,
           { maxWidth: "150px" },
         ]}
       >
