@@ -35,31 +35,26 @@ const Messages = () => {
   const { user } = useAuth();
   const { params } = useRoute();
   const [input, setInput] = useState("");
-  const [messages, setMessages] = useState();
+  const [messages, setMessages] = useState([
+    { message: "message1" },
+    { message: "message2" },
+  ]);
 
   const { matchDetails } = params;
 
   useEffect(
     onSnapshot(
-      query(
-        collection(db, "matches", matchDetails.id, "messages"),
-        orderBy("timestamp", "desc")
-      ),
-      function (snapshot) {
+      query(collection(db, "matches"), orderBy("timestamp", "desc")),
+      (snapshot) => {
         console.log(snapshot);
 
-        setMessages(
-          snapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }))
-        );
+        setMessages(["message", "message2"]);
       }
     ),
-    [matchDetails, db]
+    [db, matchDetails]
   );
 
-  // console.log(messages);
+  console.log(messages);
 
   const sendMessage = () => {
     addDoc(collection(db, "matches", matchDetails.id, "messages"), {

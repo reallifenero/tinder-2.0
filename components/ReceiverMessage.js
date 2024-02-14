@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, Image } from "react-native";
 import React from "react";
 import tw from "tailwind-react-native-classnames";
 
@@ -6,7 +6,7 @@ const ReceiverMessage = ({ message }) => {
   return (
     <View
       style={[
-        tw`bg-red-400 rounded-lg rounded-tl-none px-5 px-5 py-3 mx-3 my-2 ml-14`,
+        tw`bg-red-400 rounded-lg rounded-tl-none px-5 py-3 my-2 ml-5`,
         { alignSelf: "flex-start" },
       ]}
     >
@@ -16,7 +16,7 @@ const ReceiverMessage = ({ message }) => {
           uri: message.photoURL,
         }}
       />
-      <Text>{message.message}</Text>
+      <Text style={tw`text-gray-100 text-base`}>{message.message}</Text>
     </View>
   );
 };
