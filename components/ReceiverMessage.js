@@ -5,18 +5,22 @@ import tw from "tailwind-react-native-classnames";
 const ReceiverMessage = ({ message }) => {
   return (
     <View
-      style={[
-        tw`bg-red-400 rounded-lg rounded-tl-none px-5 py-3 my-2 ml-5`,
-        { alignSelf: "flex-start" },
-      ]}
+      style={[tw`flex flex-row justify-between`, { alignSelf: "flex-start" }]}
     >
       <Image
-        style={tw`h-12 w-12 rounded-full absolute top-0 left-14`}
+        style={tw`h-12 w-12 rounded-full mr-2`}
         source={{
           uri: message.photoURL,
         }}
       />
-      <Text style={tw`text-gray-100 text-base`}>{message.message}</Text>
+      <View
+        style={[
+          tw`bg-red-800 rounded rounded-tl-none px-5 py-3 my-2 w-4/5 max-w-sm text-gray-100 text-sm capitalize`,
+          { maxWidth: "150px" },
+        ]}
+      >
+        <Text style={tw`text-white`}>{message.message}</Text>
+      </View>
     </View>
   );
 };

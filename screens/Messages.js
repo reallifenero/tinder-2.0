@@ -36,8 +36,21 @@ const Messages = () => {
   const { params } = useRoute();
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([
-    { message: "message1" },
-    { message: "message2" },
+    {
+      id: 1,
+      message:
+        "this is not the only message on the system. Even if you want to check it twice.",
+      userId: "swc9PGjTRke8mLO30I8uEsDWoQI3WZYVr",
+      photoURL: "https://cdn.nba.com/headshots/nba/latest/1040x760/202695.png",
+    },
+    {
+      id: 2,
+      message:
+        "While using the property display: inline-block will wrap the element to prevent the text inside from extending beyond its parent.",
+      userId: "WZYVrWfjAYM5t3qxPbQjL62Zedm1",
+      photoURL:
+        "https://cdn.wrestletalk.com/wp-content/uploads/2024/02/Sasha-Banks-Mercedes-Mone-AEW-logo.jpg",
+    },
   ]);
 
   const { matchDetails } = params;
@@ -53,8 +66,6 @@ const Messages = () => {
     ),
     [db, matchDetails]
   );
-
-  console.log(messages);
 
   const sendMessage = () => {
     addDoc(collection(db, "matches", matchDetails.id, "messages"), {
