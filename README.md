@@ -10,6 +10,8 @@ A tinder mobile application built with react native and expo.
 - Expo
 - Styled Components
 - Tailwind
+- Firebase Google Authentication
+-
 
 ## Code credits
 
